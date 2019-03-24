@@ -5,6 +5,7 @@ __pycache__/
 
 
 # R
+r4ds/.Rhistory
 .R*
 # C extensions
 *.so
