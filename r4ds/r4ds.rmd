@@ -1,0 +1,42 @@
+---
+title: "R_for_data_science"
+author: "farland"
+date: "March 22, 2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Prepare 
+
+```{r}
+#install.packages("tidyverse")
+library(tidyverse)
+library(ggplot2)
+```
+### mtcars quesions
+- big engine use more fule than small engine?
+- what's the relationship between fule and engine size?
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy))
+```
+
+- answer: negtive relationship
+ - q: 6,7 point coutlier? what's mean? sssssssss
+```{r}
+ggplot(data=mpg) + geom_point(mapping = aes(x = displ, y = cyl))
+```
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = class, y = hwy))
+```
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = class))
+```
+
