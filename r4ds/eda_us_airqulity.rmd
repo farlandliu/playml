@@ -1,0 +1,104 @@
+---
+title: "EDA of us airquality"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## prepare libraries
+```{r}
+library(ggplot2)
+library(tidyverse)
+```
+
+## load data from csv and view data summary
+> limit:the "annual mean, averaged over 3 years" cannot exceed
+12 μg/m3 
+
+> data source:
+https://raw.githubusercontent.com/DataScienceSpecialization/courses/master/04_ExploratoryAnalysis/exploratoryGraphs/PM25data.zip
+[EPAAirQualitySystem](https://www3.epa.gov/ttn/airs/airsaqs/detaildata/downloadaqsdata.htm)
+
+```{r}
+airdata <- read.csv('../data/avgpm25.csv', colClasses = c("numeric", "character", "factor", "numeric", "numeric"))
+head(airdata)
+```
+```{r}
+dim(airdata)
+summary(airdata)
+```
+
+## explore pm25
+- boxplot (single variable)
+```{r}
+qplot("", pm25, data = airdata, geom="boxplot", fill=I("lightblue"), outlier.color = I("red"))
+```
+
+调整binwidth，可以看出离群点，
+```{r}
+gg <- ggplot(airdata, aes(x=pm25))
+gg + geom_histogram(binwidth = 0.5)
+```
+
+
+**叠加直方图和密度图**
+refer to [R graphics cookbook]
+```{r}
+gg <- ggplot(airdata, aes(x=pm25,y=..density..))
+gg + geom_histogram(binwidth = 0.2) + geom_density(alpha=.2)
+```
+
+**添加rug**
+```{r}
+gg <- ggplot(airdata, aes(x=pm25))
+gg  + geom_histogram(binwidth = 0.2) +
+  geom_rug(sides = "b", alpha=.5, color="#0072B2")
+```
+
+## 按region查看分布
+
+**条形图**
+```{r}
+gg = ggplot(airdata, mapping = aes(x=region))
+
+gg + geom_bar() + ggtitle("Number of Countries in Each Region")
+```
+
+`结论`：东部的统计数量较多
+**箱体图**
+
+```{r}
+gg = ggplot(airdata, mapping = aes(x=region, y=pm25))
+gg + geom_boxplot(fill = "#0073C2FF")
+```
+
+`结论`:
+- 东部平均污染程度高，西部较低
+- 东部个别地区很低， 西部个别地区很高。看离群点
+
+**直方图**
+```{r}
+airdata$region <- as.factor(airdata$region)
+gg = ggplot(airdata, mapping = aes(x=pm25))
+gg + geom_histogram(fill = "#0073C2FF", binwidth = .2) + facet_grid(region ~ .) + geom_rug(sides = "b", alpha=.5, color="#0072B2")
+```
+
+
+**密度图**
+```{r}
+airdata$region <- as.factor(airdata$region)
+gg = ggplot(airdata, mapping = aes(x=pm25))
+gg + geom_density(fill = "#0073C2FF", binwidth = .2) + facet_grid(region ~ .) + geom_rug(sides = "b", alpha=.5, color="#0072B2")
+```
+
+**散点图 分组**
+```{r}
+gg <- ggplot(airdata, mapping = aes(x=latitude, y=pm25, color=region)) 
+gg + geom_point()
+```
+**散点图 分面**
+```{r}
+gg <- ggplot(airdata, mapping = aes(x=latitude, y=pm25, color=region)) 
+gg + geom_point() + facet_grid(. ~ region)
+```

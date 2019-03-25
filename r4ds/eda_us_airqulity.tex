@@ -1,0 +1,324 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={EDA of us airquality},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{EDA of us airquality}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+\maketitle
+
+\subsection{prepare libraries}\label{prepare-libraries}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching packages --------------------------------------------------- tidyverse 1.2.1 --
+\end{verbatim}
+
+\begin{verbatim}
+## v tibble  2.1.1       v purrr   0.3.2  
+## v tidyr   0.8.3       v dplyr   0.8.0.1
+## v readr   1.3.1       v stringr 1.3.1  
+## v tibble  2.1.1       v forcats 0.4.0
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts ------------------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+\end{verbatim}
+
+\subsection{load data from csv and view data
+summary}\label{load-data-from-csv-and-view-data-summary}
+
+\begin{quote}
+limit:the ``annual mean, averaged over 3 years'' cannot exceed 12 μg/m3
+\end{quote}
+
+\begin{quote}
+data source:
+\url{https://raw.githubusercontent.com/DataScienceSpecialization/courses/master/04_ExploratoryAnalysis/exploratoryGraphs/PM25data.zip}
+\href{https://www3.epa.gov/ttn/airs/airsaqs/detaildata/downloadaqsdata.htm}{EPAAirQualitySystem}
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{airdata <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{'../data/avgpm25.csv'}\NormalTok{, }\DataTypeTok{colClasses =} \KeywordTok{c}\NormalTok{(}\StringTok{"numeric"}\NormalTok{, }\StringTok{"character"}\NormalTok{, }\StringTok{"factor"}\NormalTok{, }\StringTok{"numeric"}\NormalTok{, }\StringTok{"numeric"}\NormalTok{))}
+\KeywordTok{head}\NormalTok{(airdata)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        pm25  fips region longitude latitude
+## 1  9.771185 01003   east -87.74826 30.59278
+## 2  9.993817 01027   east -85.84286 33.26581
+## 3 10.688618 01033   east -87.72596 34.73148
+## 4 11.337424 01049   east -85.79892 34.45913
+## 5 12.119764 01055   east -86.03212 34.01860
+## 6 10.827805 01069   east -85.35039 31.18973
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dim}\NormalTok{(airdata)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 576   5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(airdata)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       pm25            fips            region      longitude      
+##  Min.   : 3.383   Length:576         east:442   Min.   :-158.04  
+##  1st Qu.: 8.549   Class :character   west:134   1st Qu.: -97.38  
+##  Median :10.047   Mode  :character              Median : -87.37  
+##  Mean   : 9.836                                 Mean   : -91.65  
+##  3rd Qu.:11.356                                 3rd Qu.: -80.72  
+##  Max.   :18.441                                 Max.   : -68.26  
+##     latitude    
+##  Min.   :19.68  
+##  1st Qu.:35.30  
+##  Median :39.09  
+##  Mean   :38.56  
+##  3rd Qu.:41.75  
+##  Max.   :64.82
+\end{verbatim}
+
+\subsection{explore pm25}\label{explore-pm25}
+
+\begin{itemize}
+\tightlist
+\item
+  boxplot (single variable)
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{qplot}\NormalTok{(}\StringTok{""}\NormalTok{, pm25, }\DataTypeTok{data =}\NormalTok{ airdata, }\DataTypeTok{geom=}\StringTok{"boxplot"}\NormalTok{, }\DataTypeTok{fill=}\KeywordTok{I}\NormalTok{(}\StringTok{"lightblue"}\NormalTok{), }\DataTypeTok{outlier.color =} \KeywordTok{I}\NormalTok{(}\StringTok{"red"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{eda_us_airqulity_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+调整binwidth，可以看出离群点，
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gg <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(airdata, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{pm25))}
+\NormalTok{gg }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_histogram}\NormalTok{(}\DataTypeTok{binwidth =} \FloatTok{0.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{eda_us_airqulity_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\textbf{叠加直方图和密度图} refer to {[}R graphics cookbook{]}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gg <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(airdata, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{pm25,}\DataTypeTok{y=}\NormalTok{..density..))}
+\NormalTok{gg }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_histogram}\NormalTok{(}\DataTypeTok{binwidth =} \FloatTok{0.2}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_density}\NormalTok{(}\DataTypeTok{alpha=}\NormalTok{.}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{eda_us_airqulity_files/figure-latex/unnamed-chunk-6-1.pdf}
+
+\textbf{添加rug}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gg <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(airdata, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{pm25))}
+\NormalTok{gg  }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_histogram}\NormalTok{(}\DataTypeTok{binwidth =} \FloatTok{0.2}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_rug}\NormalTok{(}\DataTypeTok{sides =} \StringTok{"b"}\NormalTok{, }\DataTypeTok{alpha=}\NormalTok{.}\DecValTok{5}\NormalTok{, }\DataTypeTok{color=}\StringTok{"#0072B2"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{eda_us_airqulity_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\subsection{按region查看分布}\label{region}
+
+\textbf{条形图}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gg =}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(airdata, }\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{region))}
+
+\NormalTok{gg }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_bar}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Number of Countries in Each Region"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{eda_us_airqulity_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+\texttt{结论}：东部的统计数量较多 \textbf{箱体图}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gg =}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(airdata, }\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{region, }\DataTypeTok{y=}\NormalTok{pm25))}
+\NormalTok{gg }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_boxplot}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"#0073C2FF"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{eda_us_airqulity_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+\texttt{结论}: - 东部平均污染程度高，西部较低 - 东部个别地区很低，
+西部个别地区很高。看离群点
+
+\textbf{直方图}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{airdata}\OperatorTok{$}\NormalTok{region <-}\StringTok{ }\KeywordTok{as.factor}\NormalTok{(airdata}\OperatorTok{$}\NormalTok{region)}
+\NormalTok{gg =}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(airdata, }\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{pm25))}
+\NormalTok{gg }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_histogram}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"#0073C2FF"}\NormalTok{, }\DataTypeTok{binwidth =}\NormalTok{ .}\DecValTok{2}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{facet_grid}\NormalTok{(region }\OperatorTok{~}\StringTok{ }\NormalTok{.) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_rug}\NormalTok{(}\DataTypeTok{sides =} \StringTok{"b"}\NormalTok{, }\DataTypeTok{alpha=}\NormalTok{.}\DecValTok{5}\NormalTok{, }\DataTypeTok{color=}\StringTok{"#0072B2"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{eda_us_airqulity_files/figure-latex/unnamed-chunk-10-1.pdf}
+
+\textbf{密度图}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{airdata}\OperatorTok{$}\NormalTok{region <-}\StringTok{ }\KeywordTok{as.factor}\NormalTok{(airdata}\OperatorTok{$}\NormalTok{region)}
+\NormalTok{gg =}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(airdata, }\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{pm25))}
+\NormalTok{gg }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_density}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"#0073C2FF"}\NormalTok{, }\DataTypeTok{binwidth =}\NormalTok{ .}\DecValTok{2}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{facet_grid}\NormalTok{(region }\OperatorTok{~}\StringTok{ }\NormalTok{.) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_rug}\NormalTok{(}\DataTypeTok{sides =} \StringTok{"b"}\NormalTok{, }\DataTypeTok{alpha=}\NormalTok{.}\DecValTok{5}\NormalTok{, }\DataTypeTok{color=}\StringTok{"#0072B2"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Ignoring unknown parameters: binwidth
+\end{verbatim}
+
+\includegraphics{eda_us_airqulity_files/figure-latex/unnamed-chunk-11-1.pdf}
+
+
+\end{document}
